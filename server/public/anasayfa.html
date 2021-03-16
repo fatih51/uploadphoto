@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <title>Türk Programcılar Discord Sunucusu</title>
+    </head>
+    <body>
+        <ul id="ul">
+
+        </ul>
+        <div class="choose">
+            <form method="post" enctype="multipart/form-data" action="/uploads">
+                <input type="file" name="file" id="file">
+                <input type="submit" value="Yükle" id="send">
+            </form>
+        </div>
+    </body>
+    <script>
+        $.ajax({
+            url: 'http://localhost:3000/',
+            method:'POST',
+            data: {list: "some info"}
+        }).done(function(data){
+            //if we have a successful post request ... 
+            if(data.success){
+                //change the DOM &
+                //set the data in local storage to persist upon page request
+                localStorage.setItem("permanentData", data.message);
+                var savedText = localStorage.getItem("permanentData");
+                var ul = document.getElementById("ul");
+                ul.innerHTML=savedText;
+                return;
+            }
+        }).fail(function(){
+        //do nothing ....
+            console.log('failed...');
+            return;
+        });
+    </script>
+
+</html>
